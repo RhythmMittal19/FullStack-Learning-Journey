@@ -11,7 +11,7 @@ setTimeout(() => {
   // dont have to use global. everytime we run methods of global object.
   console.log('in the timeout');
   clearInterval(int);
-}, 1000);
+}, 3000);
 
 const int = setInterval(() => {
   console.log('in the interval');
@@ -21,4 +21,4 @@ const int = setInterval(() => {
 console.log(__dirname); // IMPORTANT to circulate path in node js
 console.log(__filename);
 
-console.log(document.querySelector);
+// console.log(document.querySelector);

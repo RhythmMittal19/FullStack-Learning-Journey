@@ -9,7 +9,6 @@ RULES
 */
 
 #include <bits/stdc++.h>
-#include <algorithm>
 using namespace std;
 
 void problem1(int n)

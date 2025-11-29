@@ -1,0 +1,88 @@
+<!--
+
+Build a Travel Agency Page
+Build an app that is functionally similar to this example project. Try not to copy the example project, give it your own personal style.
+
+Objective: Fulfill the user stories below and get all the tests to pass to complete the lab.
+
+User Stories:
+
+1. You should have a DOCTYPE declaration.
+2. You should have an html element with lang set to en.
+3. You should have a head element containing a meta void element with charset set to utf-8 and a title with the text Travel Agency Page.
+4. You should have a meta tag in your head element that contains a short description of your website for SEO.
+5. You should have an h1 element to present your travel destinations.
+6. You should have a paragraph below the h1 element introducing the travel opportunities.
+7. You should have an h2 element with the text Packages.
+8. You should have a p element introducing briefly the various packages.
+9. You should have an unordered list element with two list items. The two list items should have the text Group Travels and Private Tours, respectively. The text of each list item should be enclosed by an anchor element.
+10. You should have an h2 element with the text Top Itineraries.
+11. You should have at least three figure elements, each containing an anchor element and a figcaption element.
+
+12. The three anchor elements should have an img element with an appropriate alt attribute and a src attribute set to a valid image as their content. You can use https://cdn.freecodecamp.org/curriculum/labs/colosseo.jpg, https://cdn.freecodecamp.org/curriculum/labs/alps.jpg, and https://cdn.freecodecamp.org/curriculum/labs/sea.jpg if you would like.
+
+13. All your five anchor elements should have an href attribute with the value of https://www.freecodecamp.org/learn and a target attribute with the value of _blank.
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Agency Page</title>
+    <meta name="description" content="Travel Agency Page" />
+  </head>
+  <body>
+    <h1>Discover Italy</h1>
+    <p>
+      Explore the rich history, culture, and cuisine of Italy with our exclusive
+      travel packages.
+    </p>
+    <h2>Packages</h2>
+    <p>
+      We offer a variety of group and private tour packages tailored to your
+      interests.
+    </p>
+    <ul>
+      <li>
+        <a href="https://www.freecodecamp.org/learn" target="_blank"
+          >Group Travels</a
+        >
+      </li>
+      <li>
+        <a href="https://www.freecodecamp.org/learn" target="_blank"
+          >Private Tours</a
+        >
+      </li>
+    </ul>
+    <h2>Top Itineraries</h2>
+    <figure>
+      <a href="https://www.freecodecamp.org/learn" target="_blank">
+        <img
+          src="https://cdn.freecodecamp.org/curriculum/labs/colosseo.jpg"
+          alt="Rome in center Italy"
+        />
+      </a>
+      <figcaption>Rome in center Italy</figcaption>
+    </figure>
+    <figure>
+      <a href="https://www.freecodecamp.org/learn" target="_blank">
+        <img
+          src="https://cdn.freecodecamp.org/curriculum/labs/alps.jpg"
+          alt="Nature and National Parks"
+        />
+      </a>
+      <figcaption>Nature and National Parks</figcaption>
+    </figure>
+    <figure>
+      <a href="https://www.freecodecamp.org/learn" target="_blank">
+        <img
+          src="https://cdn.freecodecamp.org/curriculum/labs/sea.jpg"
+          alt="South Italy and the islands"
+        />
+      </a>
+      <figcaption>South Italy and the islands</figcaption>
+    </figure>
+  </body>
+</html>

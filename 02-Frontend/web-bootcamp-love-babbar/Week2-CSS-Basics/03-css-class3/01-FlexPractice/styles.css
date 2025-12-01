@@ -20,7 +20,7 @@
 
   /* FLEX ITEMS PROPERTIES WHICH ARE INSIDE THE FLEX */
 
-  /* property like order needs to be implemented on individual item  go below for box order properties*/
+  /* property like order needs to be implemented on individual item  go below for box order and align-self properties*/
 }
 
 
@@ -51,6 +51,7 @@
 }
 #box2 {
   order: 3;
+  align-self: stretch;
 }
 #box4{
   order: 1;

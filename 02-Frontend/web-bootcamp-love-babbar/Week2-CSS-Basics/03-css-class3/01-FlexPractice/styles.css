@@ -1,0 +1,57 @@
+.container {
+  height: 500px;
+  border: 1px solid green;
+
+  /* FLEX PROPERTIES - THE OUTER CONTAINER CONTAINING THE FLEX ITEMS */
+
+  display: flex;
+  /* shorthand notation of flex-direction and flex-wrap is flex-flow*/
+
+  /* justify content alligns item along main axis = horizontally */
+  justify-content: center;
+
+  /* align items alligns items along cross axis = vertically */
+  align-items: center;
+
+  /* for multiple row we can use align content to make adjustments*/
+  align-content: center;
+
+  /* gap: 10px; */
+
+  /* FLEX ITEMS PROPERTIES WHICH ARE INSIDE THE FLEX */
+
+  /* property like order needs to be implemented on individual item  go below for box order properties*/
+}
+
+
+
+.box {
+  border: 1px solid brown;
+  background-color: aqua;
+  /* width: 50px; */
+  /* flex-grow: 1; */
+
+  /* we can set speed at which a certain box will shrink by using flex-shrink */
+
+  /* when we hard code width of a box in overflow condition the text gets hidden but using flex-basis the flex box width automatically increases */
+
+  flex-basis: 100px;
+
+
+  /* flex is another shorthand notation combining order + flex-grow + flex-shrink + flex-basis */
+}
+
+#box1 {
+  order: 4;
+  flex-shrink: 2;
+}
+#box3 {
+  order: 2;
+  flex-shrink: 4;
+}
+#box2 {
+  order: 3;
+}
+#box4{
+  order: 1;
+}

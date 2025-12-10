@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Practice Playground</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px;
+        min-height: 100vh;
+      }
+
+      body.dark-mode {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #fff;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      body.dark-mode .container {
+        background: #2a2a3e;
+        color: #fff;
+      }
+
+      h1 {
+        text-align: center;
+        color: #667eea;
+        margin-bottom: 10px;
+        font-size: 2.5em;
+      }
+
+      body.dark-mode h1 {
+        color: #a78bfa;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 1.1em;
+      }
+
+      body.dark-mode .subtitle {
+        color: #aaa;
+      }
+
+      .section {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border-left: 5px solid #667eea;
+        transition: all 0.3s;
+      }
+
+      body.dark-mode .section {
+        background: #1e1e2e;
+        border-left-color: #a78bfa;
+      }
+
+      .section:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .section h2 {
+        color: #667eea;
+        margin-bottom: 15px;
+        font-size: 1.5em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      body.dark-mode .section h2 {
+        color: #a78bfa;
+      }
+
+      .section-number {
+        background: #667eea;
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9em;
+        font-weight: bold;
+      }
+
+      body.dark-mode .section-number {
+        background: #a78bfa;
+      }
+
+      button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s;
+        margin: 5px;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      input[type="text"] {
+        padding: 12px;
+        border: 2px solid #667eea;
+        border-radius: 8px;
+        font-size: 16px;
+        margin: 5px;
+        width: calc(100% - 10px);
+        max-width: 300px;
+        transition: all 0.3s;
+      }
+
+      input[type="text"]:focus {
+        outline: none;
+        border-color: #764ba2;
+        box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+      }
+
+      body.dark-mode input[type="text"] {
+        background: #1e1e2e;
+        color: #fff;
+        border-color: #a78bfa;
+      }
+
+      .demo-box {
+        background: white;
+        border: 3px dashed #667eea;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 15px 0;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2em;
+        transition: all 0.3s;
+      }
+
+      body.dark-mode .demo-box {
+        background: #16213e;
+        border-color: #a78bfa;
+      }
+
+      .color-box {
+        width: 150px;
+        height: 150px;
+        background: #667eea;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        margin: 15px auto;
+      }
+
+      .color-box:hover {
+        transform: scale(1.05) rotate(2deg);
+      }
+
+      .counter-display {
+        font-size: 3em;
+        font-weight: bold;
+        color: #667eea;
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      body.dark-mode .counter-display {
+        color: #a78bfa;
+      }
+
+      .list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .list-item {
+        background: white;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border-left: 4px solid #667eea;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s;
+      }
+
+      body.dark-mode .list-item {
+        background: #16213e;
+        border-left-color: #a78bfa;
+      }
+
+      .list-item:hover {
+        transform: translateX(10px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .delete-btn {
+        background: #ef4444;
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+
+      .delete-btn:hover {
+        background: #dc2626;
+      }
+
+      .info-box {
+        background: #e0e7ff;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 10px 0;
+        border-left: 4px solid #667eea;
+      }
+
+      body.dark-mode .info-box {
+        background: #1e1e3e;
+        border-left-color: #a78bfa;
+      }
+
+      .code {
+        background: #1e1e1e;
+        color: #50fa7b;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+        font-size: 0.9em;
+      }
+
+      .highlight {
+        background: yellow;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-weight: bold;
+      }
+
+      body.dark-mode .highlight {
+        background: #fbbf24;
+        color: #000;
+      }
+
+      .active {
+        border: 3px solid #10b981;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+      }
+
+      .console-output {
+        background: #1e1e1e;
+        color: #50fa7b;
+        padding: 15px;
+        border-radius: 8px;
+        font-family: "Courier New", monospace;
+        margin: 10px 0;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .flex-center {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .toggle-dark-mode {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #1e1e1e;
+        z-index: 1000;
+        font-size: 18px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      body.dark-mode .toggle-dark-mode {
+        background: #fbbf24;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .section {
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      .parent-element {
+        background: #dbeafe;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+      }
+
+      body.dark-mode .parent-element {
+        background: #1e3a5f;
+      }
+
+      .child-element {
+        background: #bfdbfe;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 10px 0;
+      }
+
+      body.dark-mode .child-element {
+        background: #2563eb;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙</button>
+
+    <div class="container">
+      <h1>🚀 DOM Practice Playground</h1>
+      <p class="subtitle">
+        Interactive examples for all DOM concepts - Open Console (F12) to see
+        results!
+      </p>
+
+      <!-- Section 1: Selecting Elements -->
+      <div class="section">
+        <h2><span class="section-number">1</span>Selecting Elements</h2>
+        <div class="info-box">
+          <p>Try these in Console:</p>
+          <p><span class="code">document.getElementById('heading')</span></p>
+          <p><span class="code">document.querySelector('.demo-box')</span></p>
+          <p><span class="code">document.querySelectorAll('button')</span></p>
+        </div>
+        <div class="demo-box" id="heading">
+          I am the main heading (id="heading")
+        </div>
+        <div class="demo-box class-demo">First box (class="class-demo")</div>
+        <div class="demo-box class-demo">Second box (class="class-demo")</div>
+        <button onclick="selectDemo()">
+          Show Selection Results in Console
+        </button>
+      </div>
+
+      <!-- Section 2: Modifying Content -->
+      <div class="section">
+        <h2><span class="section-number">2</span>Modifying Content</h2>
+        <div class="demo-box" id="content-box">Original Content</div>
+        <div class="flex-center">
+          <button onclick="changeInnerHTML()">Change innerHTML</button>
+          <button onclick="changeInnerText()">Change innerText</button>
+          <button onclick="changeTextContent()">Change textContent</button>
+          <button onclick="resetContent()">Reset</button>
+        </div>
+        <div class="console-output" id="content-output">
+          Results will appear here...
+        </div>
+      </div>
+
+      <!-- Section 3: Attributes -->
+      <div class="section">
+        <h2><span class="section-number">3</span>Attributes</h2>
+        <a
+          href="https://example.com"
+          id="demo-link"
+          target="_self"
+          class="demo-link"
+          >Demo Link</a
+        >
+        <div class="flex-center" style="margin-top: 15px">
+          <button onclick="getAttributeDemo()">Get href Attribute</button>
+          <button onclick="setAttributeDemo()">Set href to Google</button>
+          <button onclick="setTargetDemo()">Add target="_blank"</button>
+        </div>
+        <div class="console-output" id="attr-output">
+          Attribute info will appear here...
+        </div>
+      </div>
+
+      <!-- Section 4: Styling -->
+      <div class="section">
+        <h2><span class="section-number">4</span>Styling Elements</h2>
+        <div class="demo-box" id="style-box">Style me!</div>
+        <div class="flex-center">
+          <button onclick="changeColor()">Change Color</button>
+          <button onclick="changeBg()">Change Background</button>
+          <button onclick="changeFontSize()">Change Font Size</button>
+          <button onclick="addBorder()">Add Border</button>
+          <button onclick="resetStyles()">Reset Styles</button>
+        </div>
+      </div>
+
+      <!-- Section 5: Class Manipulation -->
+      <div class="section">
+        <h2><span class="section-number">5</span>Class Manipulation</h2>
+        <div class="demo-box" id="class-box">Class manipulation demo</div>
+        <div class="flex-center">
+          <button onclick="addClass()">Add 'active' Class</button>
+          <button onclick="removeClass()">Remove 'active' Class</button>
+          <button onclick="toggleClass()">Toggle 'highlight' Class</button>
+          <button onclick="checkClass()">Check if has 'active'</button>
+        </div>
+        <div class="console-output" id="class-output">
+          Class info will appear here...
+        </div>
+      </div>
+
+      <!-- Section 6: Creating & Adding Elements -->
+      <div class="section">
+        <h2><span class="section-number">6</span>Creating & Adding Elements</h2>
+        <div
+          id="create-container"
+          class="demo-box"
+          style="flex-direction: column; gap: 10px"
+        >
+          <p>Elements will be added here</p>
+        </div>
+        <div class="flex-center">
+          <button onclick="createAndAppend()">Append New Element</button>
+          <button onclick="createAndPrepend()">Prepend New Element</button>
+          <button onclick="clearContainer()">Clear All</button>
+        </div>
+      </div>
+
+      <!-- Section 7: Removing Elements -->
+      <div class="section">
+        <h2><span class="section-number">7</span>Removing Elements</h2>
+        <div id="remove-container">
+          <div class="demo-box removable">Box 1 - Click to Remove</div>
+          <div class="demo-box removable">Box 2 - Click to Remove</div>
+          <div class="demo-box removable">Box 3 - Click to Remove</div>
+        </div>
+        <button onclick="resetRemovables()">Reset Boxes</button>
+      </div>
+
+      <!-- Section 8: DOM Traversal -->
+      <div class="section">
+        <h2><span class="section-number">8</span>DOM Traversal</h2>
+        <div class="parent-element" id="parent">
+          <div class="child-element" id="first-child">First Child</div>
+          <div class="child-element" id="middle-child">
+            Middle Child (Target)
+          </div>
+          <div class="child-element" id="last-child">Last Child</div>
+        </div>
+        <div class="flex-center">
+          <button onclick="showParent()">Show Parent</button>
+          <button onclick="showChildren()">Show Children</button>
+          <button onclick="showSiblings()">Show Siblings</button>
+        </div>
+        <div class="console-output" id="traversal-output">
+          Traversal info will appear here...
+        </div>
+      </div>
+
+      <!-- Section 9: Counter Example -->
+      <div class="section">
+        <h2><span class="section-number">9</span>Counter App</h2>
+        <div class="counter-display" id="counter">0</div>
+        <div class="flex-center" style="justify-content: center">
+          <button onclick="increment()">➕ Increment</button>
+          <button onclick="decrement()">➖ Decrement</button>
+          <button onclick="resetCounter()">🔄 Reset</button>
+        </div>
+      </div>
+
+      <!-- Section 10: Color Changer -->
+      <div class="section">
+        <h2><span class="section-number">10</span>Interactive Color Box</h2>
+        <div class="color-box" id="color-box" onclick="changeBoxColor()">
+          Click Me!
+        </div>
+        <p style="text-align: center; color: #666">
+          Click the box to cycle through colors
+        </p>
+      </div>
+
+      <!-- Section 11: Todo List -->
+      <div class="section">
+        <h2><span class="section-number">11</span>Todo List</h2>
+        <div class="flex-center">
+          <input type="text" id="todo-input" placeholder="Enter a task..." />
+          <button onclick="addTodo()">Add Task</button>
+        </div>
+        <ul class="list" id="todo-list">
+          <li class="list-item">
+            Sample Task
+            <button class="delete-btn" onclick="this.parentElement.remove()">
+              Delete
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Section 12: Event Handling -->
+      <div class="section">
+        <h2><span class="section-number">12</span>Event Handling</h2>
+        <input type="text" id="event-input" placeholder="Type something..." />
+        <div class="console-output" id="event-output">
+          Event info will appear here...
+        </div>
+        <div class="flex-center">
+          <button id="click-btn">Click Event</button>
+          <button id="dblclick-btn">Double Click Event</button>
+          <button onmouseover="handleMouseOver()" onmouseout="handleMouseOut()">
+            Hover Event
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Section 1: Selecting Elements
+      function selectDemo() {
+        const byId = document.getElementById("heading");
+        const byClass = document.getElementsByClassName("class-demo");
+        const byQuery = document.querySelector(".demo-box");
+        const byQueryAll = document.querySelectorAll(".demo-box");
+
+        console.log("=== SELECTION DEMO ===");
+        console.log("getElementById:", byId);
+        console.log("getElementsByClassName:", byClass);
+        console.log("querySelector (first):", byQuery);
+        console.log("querySelectorAll (all):", byQueryAll);
+        alert("Check the Console (F12) to see selection results!");
+      }
+
+      // Section 2: Modifying Content
+      function changeInnerHTML() {
+        const box = document.getElementById("content-box");
+        box.innerHTML = "<strong>Bold Text</strong> with <em>HTML tags</em>";
+        document.getElementById("content-output").textContent =
+          "innerHTML changed (with HTML tags)";
+        console.log("innerHTML:", box.innerHTML);
+      }
+
+      function changeInnerText() {
+        const box = document.getElementById("content-box");
+        box.innerText = "Plain text only (no HTML)";
+        document.getElementById("content-output").textContent =
+          "innerText changed (plain text)";
+        console.log("innerText:", box.innerText);
+      }
+
+      function changeTextContent() {
+        const box = document.getElementById("content-box");
+        box.textContent = "Text content changed!";
+        document.getElementById("content-output").textContent =
+          "textContent changed";
+        console.log("textContent:", box.textContent);
+      }
+
+      function resetContent() {
+        document.getElementById("content-box").textContent = "Original Content";
+        document.getElementById("content-output").textContent =
+          "Content reset!";
+      }
+
+      // Section 3: Attributes
+      function getAttributeDemo() {
+        const link = document.getElementById("demo-link");
+        const href = link.getAttribute("href");
+        const target = link.getAttribute("target");
+        document.getElementById(
+          "attr-output"
+        ).textContent = `Current href: ${href}, target: ${target || "not set"}`;
+        console.log("href attribute:", href);
+        console.log("target attribute:", target);
+      }
+
+      function setAttributeDemo() {
+        const link = document.getElementById("demo-link");
+        link.setAttribute("href", "https://google.com");
+        document.getElementById("attr-output").textContent =
+          "href changed to Google.com";
+        console.log("New href:", link.getAttribute("href"));
+      }
+
+      function setTargetDemo() {
+        const link = document.getElementById("demo-link");
+        link.setAttribute("target", "_blank");
+        document.getElementById("attr-output").textContent =
+          'target="_blank" added (opens in new tab)';
+        console.log("target attribute:", link.getAttribute("target"));
+      }
+
+      // Section 4: Styling
+      function changeColor() {
+        const box = document.getElementById("style-box");
+        box.style.color = "red";
+        console.log("Color changed to red");
+      }
+
+      function changeBg() {
+        const box = document.getElementById("style-box");
+        box.style.backgroundColor = "#fbbf24";
+        console.log("Background changed to yellow");
+      }
+
+      function changeFontSize() {
+        const box = document.getElementById("style-box");
+        box.style.fontSize = "28px";
+        console.log("Font size changed to 28px");
+      }
+
+      function addBorder() {
+        const box = document.getElementById("style-box");
+        box.style.border = "5px solid #ef4444";
+        console.log("Border added");
+      }
+
+      function resetStyles() {
+        const box = document.getElementById("style-box");
+        box.style = "";
+        console.log("Styles reset");
+      }
+
+      // Section 5: Class Manipulation
+      function addClass() {
+        const box = document.getElementById("class-box");
+        box.classList.add("active");
+        document.getElementById(
+          "class-output"
+        ).textContent = `Classes: ${box.className}`;
+        console.log('Added "active" class');
+      }
+
+      function removeClass() {
+        const box = document.getElementById("class-box");
+        box.classList.remove("active");
+        document.getElementById(
+          "class-output"
+        ).textContent = `Classes: ${box.className}`;
+        console.log('Removed "active" class');
+      }
+
+      function toggleClass() {
+        const box = document.getElementById("class-box");
+        box.classList.toggle("highlight");
+        document.getElementById(
+          "class-output"
+        ).textContent = `Classes: ${box.className}`;
+        console.log('Toggled "highlight" class');
+      }
+
+      function checkClass() {
+        const box = document.getElementById("class-box");
+        const hasActive = box.classList.contains("active");
+        document.getElementById(
+          "class-output"
+        ).textContent = `Has 'active' class: ${hasActive}`;
+        console.log('Has "active" class:', hasActive);
+      }
+
+      // Section 6: Creating & Adding Elements
+      let elementCount = 0;
+      function createAndAppend() {
+        const container = document.getElementById("create-container");
+        const newDiv = document.createElement("div");
+        newDiv.textContent = `New Element ${++elementCount} (appended)`;
+        newDiv.style.cssText =
+          "background: #bfdbfe; padding: 10px; border-radius: 5px; margin: 5px;";
+        container.appendChild(newDiv);
+        console.log("Element appended");
+      }
+
+      function createAndPrepend() {
+        const container = document.getElementById("create-container");
+        const newDiv = document.createElement("div");
+        newDiv.textContent = `New Element ${++elementCount} (prepended)`;
+        newDiv.style.cssText =
+          "background: #fbbf24; padding: 10px; border-radius: 5px; margin: 5px;";
+        container.prepend(newDiv);
+        console.log("Element prepended");
+      }
+
+      function clearContainer() {
+        const container = document.getElementById("create-container");
+        container.innerHTML = "<p>Elements will be added here</p>";
+        elementCount = 0;
+        console.log("Container cleared");
+      }
+
+      // Section 7: Removing Elements
+      document.querySelectorAll(".removable").forEach((box) => {
+        box.addEventListener("click", function () {
+          this.remove();
+          console.log("Element removed");
+        });
+      });
+
+      function resetRemovables() {
+        const container = document.getElementById("remove-container");
+        container.innerHTML = `
+                <div class="demo-box removable">Box 1 - Click to Remove</div>
+                <div class="demo-box removable">Box 2 - Click to Remove</div>
+                <div class="demo-box removable">Box 3 - Click to Remove</div>
+            `;
+        document.querySelectorAll(".removable").forEach((box) => {
+          box.addEventListener("click", function () {
+            this.remove();
+          });
+        });
+      }
+
+      // Section 8: DOM Traversal
+      function showParent() {
+        const child = document.getElementById("middle-child");
+        const parent = child.parentElement;
+        document.getElementById(
+          "traversal-output"
+        ).textContent = `Parent ID: ${parent.id}`;
+        console.log("Parent:", parent);
+      }
+
+      function showChildren() {
+        const parent = document.getElementById("parent");
+        const children = parent.children;
+        document.getElementById(
+          "traversal-output"
+        ).textContent = `Number of children: ${children.length}`;
+        console.log("Children:", children);
+        console.log("First child:", parent.firstElementChild);
+        console.log("Last child:", parent.lastElementChild);
+      }
+
+      function showSiblings() {
+        const middle = document.getElementById("middle-child");
+        const prev = middle.previousElementSibling;
+        const next = middle.nextElementSibling;
+        document.getElementById(
+          "traversal-output"
+        ).textContent = `Previous: ${prev.id}, Next: ${next.id}`;
+        console.log("Previous sibling:", prev);
+        console.log("Next sibling:", next);
+      }
+
+      // Section 9: Counter
+      let count = 0;
+      function increment() {
+        count++;
+        document.getElementById("counter").textContent = count;
+        console.log("Count:", count);
+      }
+
+      function decrement() {
+        count--;
+        document.getElementById("counter").textContent = count;
+        console.log("Count:", count);
+      }
+
+      function resetCounter() {
+        count = 0;
+        document.getElementById("counter").textContent = count;
+        console.log("Counter reset");
+      }
+
+      // Section 10: Color Changer
+      const colors = [
+        "#667eea",
+        "#f43f5e",
+        "#10b981",
+        "#f59e0b",
+        "#8b5cf6",
+        "#06b6d4",
+      ];
+      let colorIndex = 0;
+      function changeBoxColor() {
+        colorIndex = (colorIndex + 1) % colors.length;
+        const box = document.getElementById("color-box");
+        box.style.backgroundColor = colors[colorIndex];
+        console.log("Color changed to:", colors[colorIndex]);
+      }
+
+      // Section 11: Todo List
+      function addTodo() {
+        const input = document.getElementById("todo-input");
+        const list = document.getElementById("todo-list");
+
+        if (input.value.trim() === "") {
+          alert("Please enter a task!");
+          return;
+        }
+
+        const li = document.createElement("li");
+        li.className = "list-item";
+        li.innerHTML = `
+                ${input.value}
+                <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+            `;
+
+        list.appendChild(li);
+        input.value = "";
+        console.log("Todo added");
+      }
+
+      document
+        .getElementById("todo-input")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            addTodo();
+          }
+        });
+
+      // Section 12: Event Handling
+      const eventInput = document.getElementById("event-input");
+      const eventOutput = document.getElementById("event-output");
+
+      eventInput.addEventListener("input", function (e) {
+        eventOutput.textContent = `Input event: ${e.target.value}`;
+      });
+
+      eventInput.addEventListener("focus", function () {
+        eventOutput.textContent = "Focus event triggered!";
+        console.log("Input focused");
+      });
+
+      eventInput.addEventListener("blur", function () {
+        eventOutput.textContent = "Blur event triggered!";
+        console.log("Input blurred");
+      });
+
+      document
+        .getElementById("click-btn")
+        .addEventListener("click", function () {
+          eventOutput.textContent = "Click event triggered!";
+          console.log("Button clicked");
+        });
+
+      document
+        .getElementById("dblclick-btn")
+        .addEventListener("dblclick", function () {
+          eventOutput.textContent = "Double click event triggered!";
+          console.log("Button double clicked");
+        });
+
+      function handleMouseOver() {
+        document.getElementById("event-output").textContent =
+          "Mouse over event!";
+        console.log("Mouse over");
+      }
+
+      function handleMouseOut() {
+        document.getElementById("event-output").textContent =
+          "Mouse out event!";
+        console.log("Mouse out");
+      }
+
+      // Dark Mode Toggle
+      function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+        const btn = document.querySelector(".toggle-dark-mode");
+        btn.textContent = document.body.classList.contains("dark-mode")
+          ? "☀️"
+          : "🌙";
+        console.log("Dark mode toggled");
+      }
+
+      // Initial console message
+      console.log(
+        "%c🚀 DOM Practice Playground Loaded!",
+        "color: #667eea; font-size: 20px; font-weight: bold;"
+      );
+      console.log(
+        "%cTry selecting elements, modifying content, and more!",
+        "color: #10b981; font-size: 14px;"
+      );
+      console.log(
+        '%cExample: document.querySelector(".demo-box")',
+        "color: #f59e0b; font-size: 12px;"
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accordion FAQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            animation: {
+              glow: "glow 2s ease-in-out infinite alternate",
+              float: "float 6s ease-in-out infinite",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      @keyframes glow {
+        from {
+          box-shadow: 0 0 20px -10px rgba(124, 58, 237, 0.5);
+        }
+        to {
+          box-shadow: 0 0 30px -10px rgba(124, 58, 237, 0.8);
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      .accordion-content {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.4s ease-out;
+      }
+      .accordion-content.open {
+        grid-template-rows: 1fr;
+      }
+      .accordion-content > div {
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen bg-[#0a0a0f] flex items-center justify-center p-4 overflow-x-hidden"
+  >
+    <!-- Background Effects -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+      <div
+        class="absolute top-1/4 -left-20 w-72 h-72 bg-violet-600/20 rounded-full blur-[100px]"
+      ></div>
+      <div
+        class="absolute bottom-1/4 -right-20 w-96 h-96 bg-fuchsia-600/20 rounded-full blur-[120px]"
+      ></div>
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[150px]"
+      ></div>
+    </div>
+
+    <div class="relative w-full max-w-2xl">
+      <!-- Floating Badge -->
+      <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+        <div
+          class="px-4 py-1.5 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-full text-white text-xs font-semibold tracking-wider uppercase shadow-lg shadow-violet-500/25"
+        >
+          Help Center
+        </div>
+      </div>
+
+      <!-- Main Card -->
+      <div
+        class="bg-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/[0.05] p-8 pt-12 shadow-2xl"
+      >
+        <!-- Header -->
+        <div class="text-center mb-10">
+          <div
+            class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 mb-4 shadow-lg shadow-violet-500/30 animate-float"
+          >
+            <span class="text-3xl">💡</span>
+          </div>
+          <h1 class="text-3xl font-bold text-white mb-2">
+            Frequently Asked
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400"
+              >Questions</span
+            >
+          </h1>
+          <p class="text-gray-500">Everything you need to know</p>
+        </div>
+
+        <!-- Accordion Container -->
+        <div id="accordion" class="space-y-4">
+          <!-- Item 1 -->
+          <div class="accordion-item group">
+            <div
+              class="relative bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-violet-500/30 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10"
+            >
+              <!-- Number Badge -->
+              <div
+                class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-violet-500/30"
+              >
+                1
+              </div>
+
+              <button
+                class="accordion-btn w-full px-6 py-5 flex justify-between items-center text-left"
+              >
+                <div class="flex items-center gap-4 ml-4">
+                  <span class="text-2xl">🚀</span>
+                  <span class="text-white font-medium"
+                    >What is JavaScript?</span
+                  >
+                </div>
+                <div
+                  class="w-8 h-8 rounded-xl bg-white/[0.05] flex items-center justify-center"
+                >
+                  <span
+                    class="accordion-icon text-violet-400 transition-transform duration-300"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </button>
+
+              <div class="accordion-content">
+                <div>
+                  <div class="px-6 pb-5 ml-4">
+                    <div class="pl-10 text-gray-400 leading-relaxed">
+                      JavaScript is a programming language that makes websites
+                      interactive. It runs in your browser and can manipulate
+                      HTML, respond to user actions, fetch data, and create
+                      amazing user experiences!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="accordion-item group">
+            <div
+              class="relative bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-violet-500/30 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10"
+            >
+              <div
+                class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-violet-500/30"
+              >
+                2
+              </div>
+
+              <button
+                class="accordion-btn w-full px-6 py-5 flex justify-between items-center text-left"
+              >
+                <div class="flex items-center gap-4 ml-4">
+                  <span class="text-2xl">📚</span>
+                  <span class="text-white font-medium"
+                    >How do I start learning to code?</span
+                  >
+                </div>
+                <div
+                  class="w-8 h-8 rounded-xl bg-white/[0.05] flex items-center justify-center"
+                >
+                  <span
+                    class="accordion-icon text-violet-400 transition-transform duration-300"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </button>
+
+              <div class="accordion-content">
+                <div>
+                  <div class="px-6 pb-5 ml-4">
+                    <div class="pl-10 text-gray-400 leading-relaxed">
+                      Start with small projects! Practice consistently, build
+                      things that interest you, and embrace mistakes as learning
+                      opportunities. Remember: consistency beats intensity. Just
+                      30 minutes daily compounds into mastery.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="accordion-item group">
+            <div
+              class="relative bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-violet-500/30 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10"
+            >
+              <div
+                class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-violet-500/30"
+              >
+                3
+              </div>
+
+              <button
+                class="accordion-btn w-full px-6 py-5 flex justify-between items-center text-left"
+              >
+                <div class="flex items-center gap-4 ml-4">
+                  <span class="text-2xl">🌳</span>
+                  <span class="text-white font-medium">What is the DOM?</span>
+                </div>
+                <div
+                  class="w-8 h-8 rounded-xl bg-white/[0.05] flex items-center justify-center"
+                >
+                  <span
+                    class="accordion-icon text-violet-400 transition-transform duration-300"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </button>
+
+              <div class="accordion-content">
+                <div>
+                  <div class="px-6 pb-5 ml-4">
+                    <div class="pl-10 text-gray-400 leading-relaxed">
+                      DOM stands for Document Object Model. It's JavaScript's
+                      view of your HTML page as a tree of objects. Each element
+                      becomes a node you can access, modify, delete, or create
+                      dynamically!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="accordion-item group">
+            <div
+              class="relative bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-violet-500/30 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10"
+            >
+              <div
+                class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-violet-500/30"
+              >
+                4
+              </div>
+
+              <button
+                class="accordion-btn w-full px-6 py-5 flex justify-between items-center text-left"
+              >
+                <div class="flex items-center gap-4 ml-4">
+                  <span class="text-2xl">👆</span>
+                  <span class="text-white font-medium"
+                    >Why use event listeners?</span
+                  >
+                </div>
+                <div
+                  class="w-8 h-8 rounded-xl bg-white/[0.05] flex items-center justify-center"
+                >
+                  <span
+                    class="accordion-icon text-violet-400 transition-transform duration-300"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </button>
+
+              <div class="accordion-content">
+                <div>
+                  <div class="px-6 pb-5 ml-4">
+                    <div class="pl-10 text-gray-400 leading-relaxed">
+                      Event listeners let your code respond to user
+                      actions—clicks, typing, scrolling, hovering, and more.
+                      They're the bridge between user intent and your
+                      application's response!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="accordion-item group">
+            <div
+              class="relative bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.05] hover:border-violet-500/30 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10"
+            >
+              <div
+                class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-violet-500/30"
+              >
+                5
+              </div>
+
+              <button
+                class="accordion-btn w-full px-6 py-5 flex justify-between items-center text-left"
+              >
+                <div class="flex items-center gap-4 ml-4">
+                  <span class="text-2xl">🎨</span>
+                  <span class="text-white font-medium"
+                    >What is Tailwind CSS?</span
+                  >
+                </div>
+                <div
+                  class="w-8 h-8 rounded-xl bg-white/[0.05] flex items-center justify-center"
+                >
+                  <span
+                    class="accordion-icon text-violet-400 transition-transform duration-300"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </button>
+
+              <div class="accordion-content">
+                <div>
+                  <div class="px-6 pb-5 ml-4">
+                    <div class="pl-10 text-gray-400 leading-relaxed">
+                      Tailwind is a utility-first CSS framework. Instead of
+                      writing custom CSS, you compose designs using pre-built
+                      utility classes directly in HTML. It's fast, flexible, and
+                      incredibly powerful!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Stats -->
+        <div
+          class="mt-8 pt-6 border-t border-white/[0.05] flex justify-center gap-8"
+        >
+          <div class="text-center">
+            <div
+              id="openCount"
+              class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-400"
+            >
+              0
+            </div>
+            <div class="text-gray-500 text-sm">Open</div>
+          </div>
+          <div class="w-px bg-white/[0.05]"></div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-white">5</div>
+            <div class="text-gray-500 text-sm">Total</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Glow -->
+      <div
+        class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-violet-600/20 blur-2xl rounded-full"
+      ></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

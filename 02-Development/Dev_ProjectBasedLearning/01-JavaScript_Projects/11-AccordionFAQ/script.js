@@ -1,4 +1,4 @@
-``/*
+/*
 
 NEW CONCEPTS:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -28,9 +28,9 @@ STEP 1: Grab DOM elements
 
 */
 
-let accordion = document.getElementById('accordion');
-let accordionItems = document.querySelectorAll('.accordion-item');
-let count = document.getElementById('openCount');
+let accordion = document.getElementById("accordion");
+let accordionItems = document.querySelectorAll(".accordion-item");
+let count = document.getElementById("openCount");
 
 /*
 
@@ -59,22 +59,17 @@ STEP 2: Add click listener to #accordion
 
 */
 
-accordion.addEventListener('click', (event) => {
-  event.target.closest('.accordion-btn')
-})
+accordion.addEventListener("click", (event) => {
+  let btn = event.target.closest(".accordion-btn");
 
-/*
+  if (!btn) return;
 
-STEP 3 (BONUS): Only one open at a time
-│
-└── Before opening clicked item:
-    ├── Loop all .accordion-content
-    ├── Remove 'open' class from all
-    ├── Reset all icons (remove 'rotate-180')
-    └── Then toggle clicked one
+  let parent = btn.closest('.accordion-item');
+  let content = parent.querySelector(".accordion-content");
+  let icon = btn.querySelector(".accordion-icon");
 
+  content.classList.toggle("open");
+  icon.classList.toggle("rotate-180");
 
-STEP 4: Update counter function
-└── Count elements where .accordion-content has 'open' class
-
-*/
+  count.textContent = document.querySelectorAll('.accordion-content.open').length
+});

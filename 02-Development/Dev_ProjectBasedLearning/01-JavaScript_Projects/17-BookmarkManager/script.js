@@ -8,9 +8,9 @@ localStorage lets you save data in the browser that
 persists even after page refresh!
 
 KEY METHODS:
-├── localStorage.setItem("key", "value")  → Save data
-├── localStorage.getItem("key")           → Get data
-├── localStorage.removeItem("key")        → Delete data
+├── data = localStorage.setItem("key", "value")  → Save data
+├── data = localStorage.getItem("key")           → Get data
+├── data = localStorage.removeItem("key")        → Delete data
 ├── JSON.stringify() object -> string     → Convert objects ↔ strings
 └── JSON.parse() string -> object         → Convert objects ↔ strings
 
@@ -33,7 +33,7 @@ STEP 1: Grab all elements
 
 */
 
-let submit = document.getElementById("add-btn");
+let submit = document.getElementById("bookmark-form");
 let siteName = document.getElementById("site-name");
 let siteURL = document.getElementById("site-url");
 let bookmarksList = document.getElementById("bookmarks-list");
@@ -99,6 +99,41 @@ PURPOSE: Display all bookmarks on the page
 
         └── Append to bookmarks list
 
+*/
+
+function renderBookmarks() {
+  const existingItems = bookmarksList.querySelectorAll(".bookmark-item");
+  existingItems.forEach((item) => item.remove());
+
+  if (bookmarks.length === 0) {
+    emptyMessage.style.display = "block";
+    return;
+  }
+
+  emptyMessage.style.display = "none";
+
+  bookmarks.forEach((bookmark) => {
+    const item = document.createElement("div");
+    item.className = "bookmark-item";
+    item.dataset.id = bookmark.id;
+
+    item.innerHTML = `
+      <div class="bookmark-info">
+        <h3>${bookmark.name}</h3>
+        <a href="${bookmark.url}" target="_blank">${bookmark.url}</a>
+      </div>
+      <div class="bookmark-actions">
+        <button class="visit-btn">Visit</button>
+        <button class="delete-btn">Delete</button>
+      </div>
+    `;
+
+    bookmarksList.appendChild(item);
+  });
+}
+
+/*
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5: Create "addBookmark" function
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -116,6 +151,27 @@ PURPOSE: Add new bookmark to array
 ├── Re-render the list (call renderBookmarks)
 └── Clear the input fields
 
+*/
+
+function addBookmark() {
+  let Sname = siteName.value;
+  let Surl = siteURL.value;
+
+  const bookmark = {
+    id: Date.now(),
+    name: Sname,
+    url: Surl,
+  };
+
+  bookmarks.push(bookmark);
+  saveBookmarks();
+  renderBookmarks();
+  siteName.value = "";
+  siteURL.value = "";
+}
+
+/*
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 6: Create "deleteBookmark" function
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -127,6 +183,16 @@ PURPOSE: Remove bookmark by ID
 ├── Save to localStorage
 └── Re-render the list
 
+*/
+
+function deleteBookmark(id) {
+  bookmarks = bookmarks.filter((b) => b.id !== id);
+  saveBookmarks();
+  renderBookmarks();
+}
+
+/*
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 7: Create "visitBookmark" function
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -134,6 +200,14 @@ PURPOSE: Open bookmark URL in new tab
 
 ├── Receive URL as parameter
 └── window.open(url, "_blank")
+
+*/
+
+function visitBookmark(url) {
+  window.open(url, "_blank");
+}
+
+/*
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 8: Add event listeners
@@ -155,13 +229,23 @@ BUTTON CLICKS (Event Delegation):
 
 */
 
-submit.addEventListener("click", (event) => {
+submit.addEventListener("submit", (event) => {
   event.preventDefault();
   addBookmark();
 });
 
 bookmarksList.addEventListener("click", (ev) => {
-  if (ev.target.closest(".delete-bt")) {
+  const bookmarkItem = ev.target.closest(".bookmark-item");
+  if (!bookmarkItem) return;
+
+  if (ev.target.classList.contains("delete-btn")) {
+    const id = parseInt(bookmarkItem.dataset.id);
+    deleteBookmark(id);
+  }
+
+  if (ev.target.classList.contains("visit-btn")) {
+    const url = bookmarkItem.querySelector("a").href;
+    visitBookmark(url);
   }
 });
 

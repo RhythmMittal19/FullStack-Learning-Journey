@@ -9,6 +9,7 @@
 *.log
 id_rsa
 secrets.yaml
+config.js
 
 # ===========================================
 # 💻 OPERATING SYSTEM JUNK

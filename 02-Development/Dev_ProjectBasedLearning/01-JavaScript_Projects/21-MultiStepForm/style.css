@@ -484,6 +484,7 @@ body::before {
 .modal-content .btn {
   width: auto;
   padding: 0 var(--space-8);
+  margin: 0 auto;
 }
 
 /* ─────────────────────────────────────────────────
